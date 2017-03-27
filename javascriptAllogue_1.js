@@ -125,7 +125,17 @@ describe('Building Blocks', function () {
         const compose = (a, b) => (c) => a(b(c));
         const cookAndEat = compose(eat, cook);
 
-        cookAndEat("huevo").should.equals("huevo frito");
+        cookAndEat("huevo").should.equal("huevo frito");
+    });
+    it('partial application', function () {
+        const mapWith = (fn) =>
+            (array) => array.map(fn);
+
+        const squareAll = mapWith((n) => n * n);
+
+        squareAll([1, 2, 3])[0].should.equal(1);
+        squareAll([1, 2, 3])[1].should.equal(4);
+        squareAll([1, 2, 3])[2].should.equal(9);
     });
 
 });
