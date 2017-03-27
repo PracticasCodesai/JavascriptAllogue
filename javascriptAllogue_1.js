@@ -15,6 +15,8 @@ describe('A Rich Aroma: Basic Numbers', () => {
         (0.1+0.1+0.1).should.equal(0.30000000000000004);
     });
 
-
+    it('minimum function Javascript', function () {
+        (() => 0).should.be.a('function');
+    });
 
 });
