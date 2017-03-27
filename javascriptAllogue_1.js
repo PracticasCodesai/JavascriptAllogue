@@ -55,7 +55,12 @@ describe('The first sip: Basic Functions', function () {
             var environment = "exist enviroment";
 
         })();
+
         environment.should.equal("create");
+    });
+
+    it('create const without word const', function () {
+        ((PI) =>() => PI.should.equal(3.14159265))(3.14159265)()
     });
 
 });
