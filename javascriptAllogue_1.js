@@ -48,4 +48,14 @@ describe('The first sip: Basic Functions', function () {
         functionGrandfather.should.equal(funcionWithoutFathers);
     });
 
+    it('create environment that it not affect at super-environment', function () {
+        var environment = "create";
+
+        (() =>{
+            var environment = "exist enviroment";
+
+        })();
+        environment.should.equal("create");
+    });
+
 });
