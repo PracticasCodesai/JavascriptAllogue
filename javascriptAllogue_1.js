@@ -97,6 +97,12 @@ describe('The first sip: Basic Functions', function () {
         double.name.should.equal("repeat");
     });
 
+    it('higher-order functions', function () {
+        const addOne = (number) => number + 1;
+        const doubleOf = (number) => number * 2;
+        const doubleOfAddOne = (number) => doubleOf(addOne(number));
 
+        doubleOfAddOne(1).should.equal(4);
+    });
 
 });
