@@ -105,4 +105,9 @@ describe('The first sip: Basic Functions', function () {
         doubleOfAddOne(1).should.equal(4);
     });
 
+    it('higher-order fuctions decorators', function () {
+        const not = (fn) => (x) => !fn(x);
+        not((x) => true)('x').should.equal(false);
+    });
+
 });
