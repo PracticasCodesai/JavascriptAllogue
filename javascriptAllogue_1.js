@@ -156,4 +156,11 @@ describe('Building Blocks', function () {
         })('outer').should.equal("inner");
     });
 
+    it('Magic Names-argument-environment_out', function () {
+        (function () {
+            return (() => arguments[0])('inner');
+        })('outer').should.equal("outer");
+    });
+
+
 });
