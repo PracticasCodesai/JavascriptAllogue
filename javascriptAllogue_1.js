@@ -127,6 +127,7 @@ describe('Building Blocks', function () {
 
         cookAndEat("huevo").should.equal("huevo frito");
     });
+
     it('partial application', function () {
         const mapWith = (fn) =>
             (array) => array.map(fn);
@@ -136,6 +137,16 @@ describe('Building Blocks', function () {
         squareAll([1, 2, 3])[0].should.equal(1);
         squareAll([1, 2, 3])[1].should.equal(4);
         squareAll([1, 2, 3])[2].should.equal(9);
+    });
+
+    it('Magic Names-argument length', function () {
+        const howMany = function () {
+            return arguments['length'];
+        };
+
+        howMany().should.equal(0);
+        howMany('hello').should.equal(1);
+        howMany('sharks', 'are', 'apex', 'predators').should.equal(4);
     });
 
 });
