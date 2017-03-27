@@ -19,4 +19,8 @@ describe('A Rich Aroma: Basic Numbers', () => {
         (() => 0).should.be.a('function');
     });
 
+    it('functions are not equals', function () {
+        ((() => 0) === (() => 0)).should.equal(false);
+    });
+
 });
