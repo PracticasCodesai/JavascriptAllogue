@@ -63,4 +63,17 @@ describe('The first sip: Basic Functions', function () {
         ((PI) =>() => PI.should.equal(3.14159265))(3.14159265)()
     });
 
+    it("const always bound at environment of its function",function(){
+        let diameter = ((diameter) => {
+            const PI = 3.14159265;
+
+            if (true) {
+                const PI = 3;
+            }
+            return diameter * PI;
+        })(2);
+
+        diameter.should.equal(6.2831853);
+    });
+
 });
