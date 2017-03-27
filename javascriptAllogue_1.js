@@ -76,4 +76,17 @@ describe('The first sip: Basic Functions', function () {
         diameter.should.equal(6.2831853);
     });
 
+    it('=> would return 6 if const had function scope', function () {
+        let diameter = ((diameter) => {
+            var PI = 3.14159265;
+
+            if (true) {
+                var PI = 3;
+            }
+            return diameter * PI;
+        })(2);
+
+        diameter.should.equal(6);
+    });
+
 });
