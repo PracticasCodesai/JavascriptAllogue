@@ -34,7 +34,11 @@ describe('The first sip: Basic Functions', function () {
         ((() => {})() === undefined).should.equal(true);
         (undefined === undefined).should.equal(true);
         (void(0) === undefined).should.equal(true);
+    });
 
+    it('pure functions with clousure inside return parameter', function () {
+        let value_x = 0;
+        ((x) => (y) => x)(value_x)('y').should.equal(0);
     });
 
 });
