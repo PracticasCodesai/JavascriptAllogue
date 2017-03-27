@@ -89,4 +89,14 @@ describe('The first sip: Basic Functions', function () {
         diameter.should.equal(6);
     });
 
+    it('functions with name', function () {
+        const double = function repeat (str) {
+            return str + str;
+        }
+
+        double.name.should.equal("repeat");
+    });
+
+
+
 });
