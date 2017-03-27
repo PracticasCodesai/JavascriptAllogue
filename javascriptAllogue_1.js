@@ -3,6 +3,7 @@
 
 let should = require('chai').should();
 
+
 describe('A Rich Aroma: Basic Numbers', () => {
 
     it("test green",() => {
@@ -23,6 +24,17 @@ describe('The first sip: Basic Functions', function () {
 
     it('functions are not equals', function () {
         ((() => 0) === (() => 0)).should.equal(false);
+    });
+
+    it('commas with functions to create functions that evaluate multiple expressions', function () {
+        (() => (1 + 1, 2 + 2))().should.equal(4);
+    });
+
+    it('three forms to expect undefined', function () {
+        ((() => {})() === undefined).should.equal(true);
+        (undefined === undefined).should.equal(true);
+        (void(0) === undefined).should.equal(true);
+
     });
 
 });
