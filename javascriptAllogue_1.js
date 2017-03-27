@@ -149,4 +149,11 @@ describe('Building Blocks', function () {
         howMany('sharks', 'are', 'apex', 'predators').should.equal(4);
     });
 
+
+    it('Magic Names-argument-environment_in', function () {
+        (function () {
+            return (function () { return arguments[0]; })('inner');
+        })('outer').should.equal("inner");
+    });
+
 });
