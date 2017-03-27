@@ -109,5 +109,23 @@ describe('The first sip: Basic Functions', function () {
         const not = (fn) => (x) => !fn(x);
         not((x) => true)('x').should.equal(false);
     });
+    
+});
+
+describe('Building Blocks', function () {
+
+    it('compose', function () {
+        const cook = (food) => food;
+        const eat = (food) => {
+            let plates = [];
+            plates["huevo"] = "huevo frito";
+           return plates[food];
+        };
+
+        const compose = (a, b) => (c) => a(b(c));
+        const cookAndEat = compose(eat, cook);
+
+        cookAndEat("huevo").should.equals("huevo frito");
+    });
 
 });
