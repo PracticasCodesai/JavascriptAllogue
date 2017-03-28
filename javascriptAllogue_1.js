@@ -397,5 +397,17 @@ describe('Picking the Bean: Choice and Truthiness', function () {
         even(42).should.equal(true);
     });
 
+    it('Function invocation uses eager evaluation,' +
+        ' so if we need to roll our own control-flow semantics, ' +
+        'we pass it functions, not expressions', function () {
 
+        const or = (a, b) => a() || b()
+
+        const and = (a, b) => a() && b()
+
+        const even = (n) =>
+            or(() => n === 0, () => and(() => n !== 1, () => even(n - 2)))
+
+        even(7).should.equal(false);
+    });
 });
