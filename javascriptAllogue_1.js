@@ -209,4 +209,23 @@ describe('Recipes with Basic Functions', function () {
         assert.deepEqual(result[2], { element: 3, index: 2, arr: [ 1, 2, 3 ] });
     });
 
+    it('parseInt() not behavior parseFloat()', function () {
+        assert.deepEqual(['1', '2', '3'].map(parseInt),[1,NaN,NaN]);
+    });
+
+    it('How work tap? not return function but call and return parameter', function () {
+        const tap = (value) =>
+            (fn) => (
+                typeof(fn) === 'function' && fn(value),
+                    value
+            );
+
+        var isExecute = "";
+        tap('espresso')((it) => {
+            isExecute = `Our drink is '${it}'`;
+        });
+        isExecute.should.equal("Our drink is 'espresso'");
+
+        tap('espresso')().should.equal('espresso');
+    });
 });
