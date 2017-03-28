@@ -301,4 +301,24 @@ describe('Recipes with Basic Functions', function () {
         assert.deepEqual(iterator.next().value, [3,4,5]);
 
     });
+
+    it('left-Variadic Functions example', function () {
+        function team(coach, captain, ...players) {
+            let arrayTeam = []
+
+            arrayTeam.push(`${captain} (captain)`);
+            for (let player of players) {
+                arrayTeam.push(player);
+            }
+            arrayTeam.push(`squad coached by ${coach}`);
+            return arrayTeam;
+        }
+
+        let arrayTeamReference = ["Xavi Hernández (captain)","Marc-André ter Stegen","" +
+        "Martín Montoya","Gerard Piqué","squad coached by Luis Enrique"];
+
+        assert.deepEqual(team('Luis Enrique', 'Xavi Hernández', 'Marc-André ter Stegen',
+            'Martín Montoya', 'Gerard Piqué'),arrayTeamReference);
+
+    });
 });
