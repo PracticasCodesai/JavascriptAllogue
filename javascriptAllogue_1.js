@@ -383,4 +383,10 @@ describe('Picking the Bean: Choice and Truthiness', function () {
         (!!("something")).should.equal(true);
         (!!(void(0))).should.equal(false);
     });
+
+    it('operators do not operate strictly on logical values, and they do not commute', function () {
+        (1 || 2).should.equal(1);
+        expect(null && undefined).to.be.null;
+        expect(undefined && null).to.be.undefined;
+    });
 });
