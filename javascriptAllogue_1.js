@@ -285,4 +285,20 @@ describe('Recipes with Basic Functions', function () {
       once(() => "sure, why not?")().should.equal('sure, why not?');
       once(() => "sure, why not?")().should.equal('sure, why not?');
     });
+
+    it('left-Variadic Functions', function () {
+
+        function* abccc(a, b, ...c) {
+            yield a;
+            yield b;
+            yield c;
+        };
+
+        let iterator = abccc(1, 2, 3, 4, 5);
+
+        iterator.next().value.should.equal(1);
+        iterator.next().value.should.equal(2);
+        assert.deepEqual(iterator.next().value, [3,4,5]);
+
+    });
 });
