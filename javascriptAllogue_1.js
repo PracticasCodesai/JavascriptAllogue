@@ -164,3 +164,31 @@ describe('Building Blocks', function () {
 
 
 });
+
+describe('Recipes with Basic Functions', function () {
+
+    it('callFirst and callLast without Call', function () {
+        const callFirst = (fn, larg) =>
+            function (...rest) {
+                return fn(larg, ...rest);
+            }
+
+        const callLast = (fn, rarg) =>
+            function (...rest) {
+                return fn(...rest, rarg);
+            }
+
+        const greet = (me, you) =>
+            `Hello, ${you}, my name is ${me}`;
+
+        const heliosSaysHello = callFirst(greet, 'Helios');
+
+        heliosSaysHello('Eartha').should.equal('Hello, Eartha, my name is Helios');
+
+        const sayHelloToCeline = callLast(greet, 'Celine');
+
+        sayHelloToCeline('Eartha').should.equal('Hello, Celine, my name is Eartha');
+
+    });
+
+});
