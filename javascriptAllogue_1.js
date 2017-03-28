@@ -33,9 +33,9 @@ describe('The first sip: Basic Functions', function () {
     });
 
     it('three forms to expect undefined', function () {
-        ((() => {})() === undefined).should.equal(true);
-        (undefined === undefined).should.equal(true);
-        (void(0) === undefined).should.equal(true);
+        expect((() => {})()).to.be.undefined;
+        expect(undefined).to.be.undefined;
+        expect(void(0)).to.be.undefined;
     });
 
     it('pure functions with clousure inside return parameter', function () {
