@@ -356,5 +356,19 @@ describe('Recipes with Basic Functions', function () {
         compose(removeTwo, addOne, quaterOf, doubleOf, addOne)(10).should.equal(4.5);
     });
 
+    it('pipiline', function () {
+
+        const addOne = (number) => number + 1;
+        const removeTwo = (number) => number - 2;
+        const doubleOf = (number) => number * 2;
+        const quaterOf = (number) => number / 4;
+
+        const pipeline = (...fns) =>
+            (value) =>
+                fns.reduce((acc, fn) => fn(acc), value);
+
+        pipeline(addOne, removeTwo, doubleOf, quaterOf)(20).should.equal(9.5);
+    });
+
 
 });
