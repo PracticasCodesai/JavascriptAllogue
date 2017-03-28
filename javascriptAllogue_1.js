@@ -321,4 +321,11 @@ describe('Recipes with Basic Functions', function () {
             'Martín Montoya', 'Gerard Piqué'),arrayTeamReference);
 
     });
+
+    it('left-variadic destructuring', function () {
+        const [first, ...butFirst] = ['why', 'hello', 'there', 'little', 'droid'];
+
+        first.should.equal("why");
+        assert.deepEqual(butFirst, ["hello","there","little","droid"]);
+    });
 });
