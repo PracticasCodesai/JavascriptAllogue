@@ -328,4 +328,18 @@ describe('Recipes with Basic Functions', function () {
         first.should.equal("why");
         assert.deepEqual(butFirst, ["hello","there","little","droid"]);
     });
+
+    it('variadic compose and recursion', function () {
+        const addOne = (number) => number + 1;
+        const removeTwo = (number) => number - 2;
+        const doubleOf = (number) => number * 2;
+        const quaterOf = (number) => number / 4;
+
+        const compose = (a, ...rest) =>
+            rest.length === 0
+                ? a
+                : (c) => a(compose(...rest)(c))
+
+        compose(addOne, removeTwo, doubleOf, quaterOf)(20).should.equal(9);
+    });
 });
