@@ -389,4 +389,13 @@ describe('Picking the Bean: Choice and Truthiness', function () {
         expect(null && undefined).to.be.null;
         expect(undefined && null).to.be.undefined;
     });
+
+    it('control-flow operators', function () {
+        const even = (n) =>
+        n === 0 || (n !== 1 && even(n - 2))
+
+        even(42).should.equal(true);
+    });
+
+
 });
