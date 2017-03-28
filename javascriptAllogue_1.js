@@ -250,4 +250,39 @@ describe('Recipes with Basic Functions', function () {
 
         expect(maybe((a, b, c) => a + b + c)(1, null, 3)).to.be.undefined;
     });
+
+    it('once function', function () {
+        const once = (fn) => {
+            let done = false;
+
+            return function () {
+                return done ? void 0 : ((done = true), fn.apply(this, arguments))
+            }
+        }
+
+        const askedOnBlindDate = once(
+            () => "sure, why not?"
+        );
+
+        askedOnBlindDate().should.equal('sure, why not?');
+
+        expect(askedOnBlindDate()).to.be.undefined;
+        expect(askedOnBlindDate()).to.be.undefined;
+
+
+    });
+
+    it('fake once not save state for learning how work once', function () {
+
+        function once(fn){
+            let done = false;
+
+            return function () {
+                return done ? void 0 : ((done = true), fn.apply(this, arguments))
+            }
+        }
+
+      once(() => "sure, why not?")().should.equal('sure, why not?');
+      once(() => "sure, why not?")().should.equal('sure, why not?');
+    });
 });
