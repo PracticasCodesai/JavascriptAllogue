@@ -3,6 +3,7 @@
 
 let should = require('chai').should();
 let assert = require('chai').assert;
+let expect = require('chai').expect;
 
 
 describe('A Rich Aroma: Basic Numbers', () => {
@@ -227,5 +228,26 @@ describe('Recipes with Basic Functions', function () {
         isExecute.should.equal("Our drink is 'espresso'");
 
         tap('espresso')().should.equal('espresso');
+    });
+
+    it('maybe', function () {
+        const maybe = (fn) =>
+            function (...args) {
+                if (args.length === 0) {
+                    return
+                }
+                else {
+                    for (let arg of args) {
+                        if (arg == null) return;
+                    }
+                    return fn.apply(this, args)
+                }
+            }
+
+
+        maybe((a, b, c) => a + b + c)(1, 2, 3).should.equal(6);
+
+
+        expect(maybe((a, b, c) => a + b + c)(1, null, 3)).to.be.undefined;
     });
 });
