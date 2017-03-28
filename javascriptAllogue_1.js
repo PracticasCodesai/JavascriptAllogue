@@ -196,4 +196,17 @@ describe('Recipes with Basic Functions', function () {
         assert.deepEqual(['1', '2', '3'].map(parseFloat),[1,2,3]);
     });
 
+    it('three arguments for map', function () {
+
+        let result  = [];
+
+        [1, 2, 3].map(function (element, index, arr) {
+          result[index] = {element: element, index: index, arr: arr}
+        })
+
+        assert.deepEqual(result[0], { element: 1, index: 0, arr: [ 1, 2, 3 ] });
+        assert.deepEqual(result[1], { element: 2, index: 1, arr: [ 1, 2, 3 ] });
+        assert.deepEqual(result[2], { element: 3, index: 2, arr: [ 1, 2, 3 ] });
+    });
+
 });
