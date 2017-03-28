@@ -375,5 +375,13 @@ describe('Recipes with Basic Functions', function () {
         (first ? "second" : "third").should.equal("second");
     });
 
+    it('truthiness and operators', function () {
+        (!5).should.equal(false);
+        (!undefined).should.equal(true);
+        (!!("something")).should.equal(true);
+        (!!(void(0))).should.equal(false);
+    });
+
+
 
 });
