@@ -342,4 +342,19 @@ describe('Recipes with Basic Functions', function () {
 
         compose(addOne, removeTwo, doubleOf, quaterOf)(20).should.equal(9);
     });
+
+    it('variadic compose iterative', function () {
+        const addOne = (number) => number + 1;
+        const removeTwo = (number) => number - 2;
+        const doubleOf = (number) => number * 2;
+        const quaterOf = (number) => number / 4;
+
+        const compose = (...fns) =>
+            (value) =>
+                fns.reverse().reduce((acc, fn) => fn(acc), value);
+
+        compose(removeTwo, addOne, quaterOf, doubleOf, addOne)(10).should.equal(4.5);
+    });
+
+
 });
