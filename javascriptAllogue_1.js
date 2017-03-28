@@ -2,6 +2,7 @@
 
 
 let should = require('chai').should();
+let assert = require('chai').assert;
 
 
 describe('A Rich Aroma: Basic Numbers', () => {
@@ -189,6 +190,10 @@ describe('Recipes with Basic Functions', function () {
 
         sayHelloToCeline('Eartha').should.equal('Hello, Celine, my name is Eartha');
 
+    });
+
+    it('unary parse to float', function () {
+        assert.deepEqual(['1', '2', '3'].map(parseFloat),[1,2,3]);
     });
 
 });
