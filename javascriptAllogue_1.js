@@ -370,5 +370,10 @@ describe('Recipes with Basic Functions', function () {
         pipeline(addOne, removeTwo, doubleOf, quaterOf)(20).should.equal(9.5);
     });
 
+    it('truthiness and the ternary operator', function () {
+        let first = true;
+        (first ? "second" : "third").should.equal("second");
+    });
+
 
 });
