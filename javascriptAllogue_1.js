@@ -678,5 +678,11 @@ describe('Composing and Decomposing Data', function () {
         assert.deepEqual(mapWith((x) => x * x, OneTwoThree), {"first":1,"rest":{"first":4,"rest":{"first":9,"rest":{}}}});
     });
 
+    it('mutation', function () {
+        const oneTwoThree = [1, 2, 3];
+        oneTwoThree[3] = 'four';
+        assert.deepEqual(oneTwoThree, [ 1, 2, 3, 'four' ]);
+    });
+
 
 });
