@@ -661,5 +661,22 @@ describe('Composing and Decomposing Data', function () {
         assert.deepEqual(reverse(OneTwoThree), {"first":3,"rest":{"first":2,"rest":{"first":1,"rest":{}}}});
     });
 
+    it('it iterates over the entire list twice', function () {
+        const EMPTY = {};
+        const OneTwoThree = { first: 1, rest: { first: 2, rest: { first: 3, rest: EMPTY } } };
+
+        const reverse = (node, delayed = EMPTY) =>
+            node === EMPTY
+                ? delayed
+                : reverse(node.rest, { first: node.first, rest: delayed });
+
+        const mapWith = (fn, node, delayed = EMPTY) =>
+            node === EMPTY
+                ? reverse(delayed)
+                : mapWith(fn, node.rest, { first: fn(node.first), rest: delayed });
+
+        assert.deepEqual(mapWith((x) => x * x, OneTwoThree), {"first":1,"rest":{"first":4,"rest":{"first":9,"rest":{}}}});
+    });
+
 
 });
