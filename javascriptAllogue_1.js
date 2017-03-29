@@ -611,6 +611,25 @@ describe('Composing and Decomposing Data', function () {
         second2.should.equal("secundus")
     });
 
+    it('literal object syntax', function () {
+        const user = {
+            name: { first: "Reginald",
+                last: "Braithwaite"
+            },
+            occupation: { title: "Author",
+                responsibilities: [ "JavaScript Allongé",
+                    "JavaScript Spessore",
+                    "CoffeeScript Ristretto"
+                ]
+            }
+        };
+
+        const {name: { first: given, last: surname}, occupation: { title: title } } = user;
+
+        surname.should.equal("Braithwaite");
+        title.should.equal("Author")
+    });
+
 
 
 
