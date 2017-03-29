@@ -684,5 +684,18 @@ describe('Composing and Decomposing Data', function () {
         assert.deepEqual(oneTwoThree, [ 1, 2, 3, 'four' ]);
     });
 
+    it('declaration vs mutation', function () {
+        const allHallowsEve = [2012, 10, 31];
+        (function (halloween) {
+            halloween = [2013, 10, 31];
+        })(allHallowsEve);
+        assert.deepEqual(allHallowsEve, [2012, 10, 31]);
+
+        const allHallowsEve1 = [2012, 10, 31];
+        (function (halloween1) {
+            halloween1[0] = 2014;
+        })(allHallowsEve1);
+        assert.deepEqual(allHallowsEve1, [2014, 10, 31]);
+    });
 
 });
