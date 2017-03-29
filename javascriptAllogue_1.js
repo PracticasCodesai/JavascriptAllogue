@@ -627,10 +627,27 @@ describe('Composing and Decomposing Data', function () {
         const {name: { first: given, last: surname}, occupation: { title: title } } = user;
 
         surname.should.equal("Braithwaite");
-        title.should.equal("Author")
+        title.should.equal("Author");
     });
 
+    it('destructure parameters', function () {
+        const user = {
+            name: { first: "Reginald",
+                last: "Braithwaite"
+            },
+            occupation: { title: "Author",
+                responsibilities: [ "JavaScript Allongé",
+                    "JavaScript Spessore",
+                    "CoffeeScript Ristretto"
+                ]
+            }
+        };
 
+        const description = ({name: { first: given }, occupation: { title: title } }) =>
+            `${given} is a ${title}`;
+
+        description(user).should.equal("Reginald is a Author");
+    });
 
 
 });
