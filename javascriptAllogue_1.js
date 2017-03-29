@@ -511,4 +511,14 @@ describe('Composing and Decomposing Data', function () {
 
         status.should.equal("ok");
     });
+
+    it('destructuring parameters. if seems array...', function () {
+
+        function bar(name){return name};
+        expect(bar("smaug") === ["smaug"][0]).to.be.true;
+
+        const numbers = (...nums) => nums;
+
+        assert.deepEqual(numbers(1, 2, 3, 4, 5),[1,2,3,4,5]);
+    });
 });
