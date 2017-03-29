@@ -649,5 +649,17 @@ describe('Composing and Decomposing Data', function () {
         description(user).should.equal("Reginald is a Author");
     });
 
+    it('reverse', function () {
+        const EMPTY = {};
+        const OneTwoThree = { first: 1, rest: { first: 2, rest: { first: 3, rest: EMPTY } } };
+
+        const reverse = (node, delayed = EMPTY) =>
+            node === EMPTY
+                ? delayed
+                : reverse(node.rest, { first: node.first, rest: delayed });
+
+        assert.deepEqual(reverse(OneTwoThree), {"first":3,"rest":{"first":2,"rest":{"first":1,"rest":{}}}});
+    });
+
 
 });
