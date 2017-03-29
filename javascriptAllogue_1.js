@@ -464,4 +464,13 @@ describe('Composing and Decomposing Data', function () {
 
         description([["Reginald", "Braithwaite"], "programmer"]).should.equal("Reginald is a programmer");
     });
+
+    it('Extracting the head and gathering everything', function () {
+        const [car, ...cdr] = [1, 2, 3, 4, 5];
+
+        car.should.equal(1);
+
+        assert.deepEqual(cdr,[2,3,4,5]);
+    });
+
 });
