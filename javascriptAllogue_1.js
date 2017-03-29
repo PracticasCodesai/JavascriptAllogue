@@ -536,4 +536,21 @@ describe('Composing and Decomposing Data', function () {
         expect(isEmpty([1])).to.be.false;
         expect(isEmpty([[]])).to.be.false;
     });
+
+    it('linear recursion, example', function () {
+        const flatten = ([first, ...rest]) => {
+            if (first === undefined) {
+                return [];
+            }
+            else if (!Array.isArray(first)) {
+                return [first, ...flatten(rest)];
+            }
+            else {
+                return [...flatten(first), ...flatten(rest)];
+            }
+        }
+
+        assert.deepEqual(flatten(["foo", [3, 4, []]]),["foo",3,4]);
+        assert.deepEqual(...([[]]),[]);
+    });
 });
