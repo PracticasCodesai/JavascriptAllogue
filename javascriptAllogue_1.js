@@ -454,4 +454,14 @@ describe('Composing and Decomposing Data', function () {
 
         surname(["Reginald", "Braithwaite",""]).should.equal("Braithwaite");
     });
+
+    it('Destructuring can nest', function () {
+        const description = (nameAndOccupation) => {
+            const [[first, last], occupation] = nameAndOccupation;
+
+            return `${first} is a ${occupation}`;
+        }
+
+        description([["Reginald", "Braithwaite"], "programmer"]).should.equal("Reginald is a programmer");
+    });
 });
