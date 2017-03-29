@@ -422,5 +422,18 @@ describe('Picking the Bean: Choice and Truthiness', function () {
 
         expect(even.bind(even,42)).to.throw("Maximum call stack size exceeded");
     });
+});
+
+describe('Composing and Decomposing Data', function () {
+
+    it('Array are not equals', function () {
+        expect([] === []).to.be.false;
+
+
+        expect([2 + 2] === [2 + 2]).to.be.false
+
+        const array_of_one = () => [1];
+        expect(array_of_one() === array_of_one()).to.be.false;
+    });
 
 });
