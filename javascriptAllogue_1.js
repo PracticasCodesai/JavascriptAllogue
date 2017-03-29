@@ -445,4 +445,13 @@ describe('Composing and Decomposing Data', function () {
         unwrap(["present"]).should.equal("present");
     });
 
+    it('destructures the array name', function () {
+        const surname = (name) => {
+            const [first, second] = name;
+
+            return second;
+        }
+
+        surname(["Reginald", "Braithwaite",""]).should.equal("Braithwaite");
+    });
 });
