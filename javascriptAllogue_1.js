@@ -548,9 +548,21 @@ describe('Composing and Decomposing Data', function () {
             else {
                 return [...flatten(first), ...flatten(rest)];
             }
-        }
+        };
 
         assert.deepEqual(flatten(["foo", [3, 4, []]]),["foo",3,4]);
         assert.deepEqual(...([[]]),[]);
+    });
+
+    it('we can identify the terminal condition,' +
+        ' the piece being broken off, and recomposing the solution.', function () {
+        const mapWith = (fn, [first, ...rest]) =>
+            first === undefined
+                ? []
+                : [fn(first), ...mapWith(fn, rest)];
+
+        assert.deepEqual(mapWith((x) => x * x, [1, 2, 3, 4, 5]),[1,4,9,16,25]);
+
+        assert.deepEqual(mapWith((x) => !!x, [null, true, 25, false, "foo"]),[false,true,true,false,true]);
     });
 });
