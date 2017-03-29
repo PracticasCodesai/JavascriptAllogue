@@ -521,4 +521,11 @@ describe('Composing and Decomposing Data', function () {
 
         assert.deepEqual(numbers(1, 2, 3, 4, 5),[1,2,3,4,5]);
     });
+
+    it('Consists of an element concatenated with a list', function () {
+        assert.deepEqual([],[]);
+        assert.deepEqual(["baz", ...[]],["baz"]);
+        assert.deepEqual(["bar", ...["baz"]],["bar","baz"]);
+        assert.deepEqual(["foo", ...["bar", "baz"]],["foo","bar","baz"]);
+    });
 });
