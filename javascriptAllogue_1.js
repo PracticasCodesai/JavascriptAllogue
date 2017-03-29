@@ -565,4 +565,13 @@ describe('Composing and Decomposing Data', function () {
 
         assert.deepEqual(mapWith((x) => !!x, [null, true, 25, false, "foo"]),[false,true,true,false,true]);
     });
+
+    it('We catenate the square of each element to the result of applying to the rest of the elements', function () {
+        const sumSquaresConcatenated = ([first, ...rest]) => first === undefined
+            ? 0
+            : first * first + sumSquaresConcatenated(rest);
+
+        sumSquaresConcatenated([1, 2, 3, 4, 5]).should.equal(55);
+    });
+
 });
