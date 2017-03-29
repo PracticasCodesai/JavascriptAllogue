@@ -472,9 +472,24 @@ describe('Composing and Decomposing Data', function () {
 
         assert.deepEqual(cdr,[2,3,4,5]);
     });
+
     it('spreading, Now I not need concat()', function () {
         const oneTwoThree = ["one", "two", "three"];
 
         assert.deepEqual(["zero", ...oneTwoThree],["zero","one","two","three"] );
+    });
+
+    it('JavaScript tries its best to assign things', function () {
+        const [what] = [];
+        expect(what).to.be.undefined;
+
+        const [why, How, who] = ["duck feet", "tiger tail"];
+        expect(who).to.be.undefined;
+
+        const [...they] = [];
+        assert.deepEqual(they,[]);
+
+        const [which, when, ...their] = ["duck feet", "tiger tail"];
+        assert.deepEqual(their,[]);
     });
 });
