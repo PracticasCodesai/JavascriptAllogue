@@ -574,4 +574,21 @@ describe('Composing and Decomposing Data', function () {
         sumSquaresConcatenated([1, 2, 3, 4, 5]).should.equal(55);
     });
 
+    it('folding', function () {
+        const foldWith = (fn, terminalValue, [first, ...rest]) =>
+            first === undefined
+                ? terminalValue
+                : fn(first, foldWith(fn, terminalValue, rest));
+
+        const squareAll1 = (array) => foldWith((first, rest) => [first * first, ...rest], [], array);
+
+        assert.deepEqual(squareAll1([1, 2, 3, 4, 5]),[1,4,9,16,25])
+
+
+        const mapWith = (fn, array) => foldWith((first, rest) => [fn(first), ...rest], [
+        ], array),squareAll2 = (array) => mapWith((x) => x * x, array);
+
+        assert.deepEqual(squareAll2([1, 2, 3, 4, 5]),[1,4,9,16,25])
+    });
+
 });
