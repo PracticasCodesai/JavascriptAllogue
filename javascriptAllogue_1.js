@@ -601,4 +601,17 @@ describe('Composing and Decomposing Data', function () {
         factorial(6).should.equal(720);
     });
 
+    it('destructuring assignments', function () {
+        const [first, second = "two"] = ["one"];
+        first.should.equal("one");
+        second.should.equal("two");
+
+        const [first2, second2 = "two"] = ["primus", "secundus"];
+        first2.should.equal("primus");
+        second2.should.equal("secundus")
+    });
+
+
+
+
 });
