@@ -472,5 +472,9 @@ describe('Composing and Decomposing Data', function () {
 
         assert.deepEqual(cdr,[2,3,4,5]);
     });
+    it('spreading, Now I not need concat()', function () {
+        const oneTwoThree = ["one", "two", "three"];
 
+        assert.deepEqual(["zero", ...oneTwoThree],["zero","one","two","three"] );
+    });
 });
