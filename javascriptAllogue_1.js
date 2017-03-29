@@ -436,4 +436,13 @@ describe('Composing and Decomposing Data', function () {
         expect(array_of_one() === array_of_one()).to.be.false;
     });
 
+    it('we can actually reverse the statement', function () {
+        const unwrap = (wrapped) => {
+            const [something] =  wrapped;
+            return something;
+        };
+
+        unwrap(["present"]).should.equal("present");
+    });
+
 });
