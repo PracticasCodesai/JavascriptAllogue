@@ -492,4 +492,23 @@ describe('Composing and Decomposing Data', function () {
         const [which, when, ...their] = ["duck feet", "tiger tail"];
         assert.deepEqual(their,[]);
     });
+
+    it('A function can return several things at once, like a value and an error code', function () {
+        const description = (nameAndOccupation) => {
+            if (nameAndOccupation.length < 2) {
+                return ["", "occupation missing"]
+            }
+            else {
+                const [[first, last], occupation] = nameAndOccupation;
+
+                return [`${first} is a ${occupation}`, "ok"];
+            }
+        }
+
+        const [reg, status] = description([["Reginald", "Braithwaite"], "programmer"]);
+
+        reg.should.equal("Reginald is a programmer");
+
+        status.should.equal("ok");
+    });
 });
