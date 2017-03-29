@@ -698,4 +698,32 @@ describe('Composing and Decomposing Data', function () {
         assert.deepEqual(allHallowsEve1, [2014, 10, 31]);
     });
 
+    it('copy with mutation', function () {
+        const EMPTY = {};
+        const OneTwoThree = { first: 1, rest: { first: 2, rest: { first: 3, rest: EMPTY } } };
+
+        const copy = (node, head = null, tail = null) => {
+            if (node === EMPTY) {
+                return head;
+            }
+            else if (tail === null) {
+                const { first, rest } = node;
+                console.log(head);
+                const newNode = { first, rest };
+                return copy(rest, newNode, newNode);
+            }
+            else {
+                const { first, rest } = node;
+                const newNode = { first, rest };
+                tail.rest = newNode;
+                return copy(node.rest, head, newNode);
+            }
+        }
+
+        let copyOfOneTwoThree = copy(OneTwoThree);
+        OneTwoThree.first = 3;
+
+        assert.notDeepEqual(copyOfOneTwoThree, OneTwoThree);
+    });
+
 });
