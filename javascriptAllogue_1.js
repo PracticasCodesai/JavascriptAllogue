@@ -528,4 +528,12 @@ describe('Composing and Decomposing Data', function () {
         assert.deepEqual(["bar", ...["baz"]],["bar","baz"]);
         assert.deepEqual(["foo", ...["bar", "baz"]],["foo","bar","baz"]);
     });
+
+    it('Array is Empty', function () {
+        const isEmpty = ([first, ...rest]) => first === undefined;
+
+        expect(isEmpty([])).to.be.true;
+        expect(isEmpty([1])).to.be.false;
+        expect(isEmpty([[]])).to.be.false;
+    });
 });
