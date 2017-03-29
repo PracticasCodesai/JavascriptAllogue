@@ -591,4 +591,14 @@ describe('Composing and Decomposing Data', function () {
         assert.deepEqual(squareAll2([1, 2, 3, 4, 5]),[1,4,9,16,25])
     });
 
+    it('default argument', function () {
+        const factorial = (n, work = 1) =>
+            n === 1
+                ? work
+                : factorial(n - 1, n * work);
+
+        factorial(1).should.equal(1);
+        factorial(6).should.equal(720);
+    });
+
 });
