@@ -410,4 +410,17 @@ describe('Picking the Bean: Choice and Truthiness', function () {
 
         even(7).should.equal(false);
     });
+
+    it('In contrast to the behaviour of the ternary operator,' +
+        ' and , function parameters are always eagerly evaluated', function () {
+        const or = (a, b) => a || b
+
+        const and = (a, b) => a && b
+
+        const even = (n) =>
+            or(n === 0, and(n !== 1, even(n - 2)))
+
+        expect(even.bind(even,42)).to.throw("Maximum call stack size exceeded");
+    });
+
 });
