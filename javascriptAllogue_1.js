@@ -643,8 +643,8 @@ describe('Composing and Decomposing Data', function () {
             }
         };
 
-        const description = ({name: { first: given }, occupation: { title: title } }) =>
-            `${given} is a ${title}`;
+        const description = ({name: { first }, occupation: { title } }) =>
+            `${first} is a ${title}`;
 
         description(user).should.equal("Reginald is a Author");
     });
