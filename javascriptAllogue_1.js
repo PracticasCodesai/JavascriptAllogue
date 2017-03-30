@@ -258,7 +258,7 @@ describe('Recipes with Basic Functions', function () {
             return function () {
                 return done ? void 0 : ((done = true), fn.apply(this, arguments))
             }
-        }
+        };
 
         const askedOnBlindDate = once(
             () => "sure, why not?"
@@ -304,7 +304,7 @@ describe('Recipes with Basic Functions', function () {
 
     it('left-Variadic Functions example', function () {
         function team(coach, captain, ...players) {
-            let arrayTeam = []
+            let arrayTeam = [];
 
             arrayTeam.push(`${captain} (captain)`);
             for (let player of players) {
@@ -392,7 +392,7 @@ describe('Picking the Bean: Choice and Truthiness', function () {
 
     it('control-flow operators', function () {
         const even = (n) =>
-        n === 0 || (n !== 1 && even(n - 2))
+        n === 0 || (n !== 1 && even(n - 2));
 
         even(42).should.equal(true);
     });
@@ -413,9 +413,9 @@ describe('Picking the Bean: Choice and Truthiness', function () {
 
     it('In contrast to the behaviour of the ternary operator,' +
         ' and , function parameters are always eagerly evaluated', function () {
-        const or = (a, b) => a || b
+        const or = (a, b) => a || b;
 
-        const and = (a, b) => a && b
+        const and = (a, b) => a && b;
 
         const even = (n) =>
             or(n === 0, and(n !== 1, even(n - 2)))
@@ -450,7 +450,7 @@ describe('Composing and Decomposing Data', function () {
             const [first, second] = name;
 
             return second;
-        }
+        };
 
         surname(["Reginald", "Braithwaite",""]).should.equal("Braithwaite");
     });
@@ -514,7 +514,7 @@ describe('Composing and Decomposing Data', function () {
 
     it('destructuring parameters. if seems array...', function () {
 
-        function bar(name){return name};
+        function bar(name){return name}
         expect(bar("smaug") === ["smaug"][0]).to.be.true;
 
         const numbers = (...nums) => nums;
@@ -760,5 +760,28 @@ describe('Composing and Decomposing Data', function () {
         factorial2(4).should.equal(24);
 
     });
+
+    it('var i Omnipresence', function () {
+        var introductions = [],
+            names = ['Karl', 'Friedrich', 'Gauss'];
+
+        for (var i = 0; i < 3; i++) {
+            introductions[i] = (soAndSo) =>
+                `Hello, ${soAndSo}, my name is ${names[i]}`
+        }
+
+        introductions[1]('Raganwald').should.equal("Hello, Raganwald, my name is undefined");
+
+        let array = [];
+        for(var i = 0; i < 5; i++){
+            array[i] = () => i;
+        }
+
+        array[1]().should.equal(5);
+        array[4]().should.equal(5);
+
+    });
+
+
 
 });
