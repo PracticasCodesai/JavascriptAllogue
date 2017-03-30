@@ -782,6 +782,26 @@ describe('Composing and Decomposing Data', function () {
 
     });
 
+    it('let i is human', function () {
+        var introductions = [],
+            names = ['Karl', 'Friedrich', 'Gauss'];
 
+        for (let i = 0; i < 3; i++) {
+            introductions[i] = (soAndSo) =>
+                `Hello, ${soAndSo}, my name is ${names[i]}`
+        }
+
+        introductions[1]('Raganwald').should.equal("Hello, Raganwald, my name is Friedrich");
+
+        let array = [];
+        for(var i = 0; i < 5; i++){
+            ((i) => {
+                array[i] = () => i;
+            })(i);
+        }
+
+        array[1]().should.equal(1);
+        array[4]().should.equal(4);
+    });
 
 });
