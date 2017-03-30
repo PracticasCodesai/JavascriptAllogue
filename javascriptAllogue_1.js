@@ -726,4 +726,39 @@ describe('Composing and Decomposing Data', function () {
         assert.notDeepEqual(copyOfOneTwoThree, OneTwoThree);
     });
 
+    it('var hoists the declaration, but not the assignment', function () {
+        const factorial = (n) => {
+
+            return innerFactorial(n, 1);
+
+            var innerFactorial = function innerFactorial (x, y) {
+                if (x == 1) {
+                    return y;
+                }
+                else {
+                    return innerFactorial(x-1, x * y);
+                }
+            }
+        }
+
+        expect(factorial.bind(factorial, 4)).throw("innerFactorial is not a function");
+
+        const factorial2 = (n) => {
+
+            var innerFactorial = function innerFactorial (x, y) {
+                if (x == 1) {
+                    return y;
+                }
+                else {
+                    return innerFactorial(x-1, x * y);
+                }
+            }
+
+            return innerFactorial(n, 1);
+        }
+
+        factorial2(4).should.equal(24);
+
+    });
+
 });
