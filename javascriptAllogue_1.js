@@ -922,4 +922,29 @@ describe('Composing and Decomposing Data', function () {
         expect(teleportingTurtle(aList)).to.be.true;
     });
 
+    it('The function doesnt care what kind of data structure we have, as long as its foldable. ' +
+        'i understanding callLeft and callRight', function () {
+
+        const callRight = (fn, ...args) =>
+            (...remainingArgs) =>
+                fn(...remainingArgs, ...args);
+
+        const foldArrayWith = (fn, terminalValue, [first, ...rest]) =>
+            first === undefined
+                ? terminalValue
+                : fn(first, foldArrayWith(fn, terminalValue, rest));
+
+        const foldArray = (array) => callRight(foldArrayWith, array);
+
+        const sumFoldable = (folder) => folder((a, b) => a + b, 0);
+
+        sumFoldable(foldArray([1, 4, 9, 16, 25])).should.equal(55);
+
+        const arraySum = (array) => (sumFoldable(foldArray(array)));
+
+        arraySum([1, 4, 9, 16, 25]).should.equal(55);
+
+    });
+
+
 });
