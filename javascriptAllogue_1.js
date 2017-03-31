@@ -708,7 +708,6 @@ describe('Composing and Decomposing Data', function () {
             }
             else if (tail === null) {
                 const { first, rest } = node;
-                console.log(head);
                 const newNode = { first, rest };
                 return copy(rest, newNode, newNode);
             }
@@ -802,6 +801,70 @@ describe('Composing and Decomposing Data', function () {
 
         array[1]().should.equal(1);
         array[4]().should.equal(4);
+    });
+
+    it('Tortoise and Hare - an algorithm to detect a loop in a linked list, in constant space', function () {
+        const EMPTY = null;
+
+        const isEmpty = (node) => node === EMPTY;
+
+        const pair = (first, rest = EMPTY) => ({first, rest});
+
+        const list = (...elements) => {
+            const [first, ...rest] = elements;
+
+            return elements.length === 0
+                ? EMPTY
+                : pair(first, list(...rest))
+        }
+
+        const forceAppend = (list1, list2) => {
+            if (isEmpty(list1)) {
+                return "FAIL!"
+            }
+            if (isEmpty(list1.rest)) {
+                list1.rest = list2;
+            }
+            else {
+                forceAppend(list1.rest, list2);
+            }
+        }
+
+        const tortoiseAndHare = (aPair) => {
+            let tortoisePair = aPair,
+                harePair = aPair.rest;
+
+            while (true) {
+                if (isEmpty(tortoisePair) || isEmpty(harePair)) {
+                    return false;
+                }
+                if (tortoisePair.first === harePair.first) {
+                    return true;
+                }
+
+                harePair = harePair.rest;
+
+                if (isEmpty(harePair)) {
+                    return false;
+                }
+                if (tortoisePair.first === harePair.first) {
+                    return true;
+                }
+
+                tortoisePair = tortoisePair.rest;
+                harePair = harePair.rest;
+            }
+        };
+
+        const aList = list(1, 2, 3, 4, 5);
+
+        expect(tortoiseAndHare(aList)).to.be.false;
+        forceAppend(aList, aList.rest.rest);
+        expect(tortoiseAndHare(aList)).to.be.true;
+
+        const aList2 = list(2, 2, 2);
+        expect(tortoiseAndHare(aList2)).to.be.true;
+
     });
 
 });
