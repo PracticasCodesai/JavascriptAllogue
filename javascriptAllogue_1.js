@@ -1108,14 +1108,25 @@ describe('Composing and Decomposing Data', function () {
 
         fortyTwo("Hello").should.equals(42);
 
-
         const I = (x) => (x);
 
         I(42).should.equal(42);
 
         K(I)("first")("second").should.equal("second");
+    });
 
+    it('Vireo', function () {
+        const K = (x) => (y) => x;
+        const I = (x) => (x);
 
+        const first = K,
+            second = K(I),
+            vireo = (x) => (y) => (c) => c(x)(y);
+
+        const latin = vireo("primus")("secundus");
+
+        latin(first).should.equal("primus");
+        latin(second).should.equal("secundus");
     });
 
 });
