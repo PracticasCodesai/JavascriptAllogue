@@ -946,5 +946,26 @@ describe('Composing and Decomposing Data', function () {
 
     });
 
+    it('experiment, create foldArrayWithout', function () {
+        const callRight = (fn, ...args) =>
+            (...remainingArgs) =>
+                fn(...remainingArgs, ...args);
+
+        const foldArrayWithout = (fn, terminalValue, first, ...rest) =>
+            first === undefined
+                ? terminalValue
+                :  fn(first, foldArrayWithout(fn, terminalValue, ...rest));
+
+        const foldNumber = (...number) => callRight(foldArrayWithout, ...number);
+
+        const sumFoldable = (folder) => folder((a, b) => a + b, 0);
+
+        sumFoldable(foldNumber(1, 4, 9, 16, 25)).should.equal(55);
+
+        const sum = (...args) => (sumFoldable(foldNumber(...args)));
+
+        sum(1, 4, 9, 16, 25).should.equal(55);
+    });
+
 
 });
