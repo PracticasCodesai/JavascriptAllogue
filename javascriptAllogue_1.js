@@ -1088,6 +1088,17 @@ describe('Composing and Decomposing Data', function () {
 
     });
 
+    it('simple iterator', function () {
+        const NumberIterator = (number = 0) =>
+            () => ({ done: false, value: number++ });
 
+        let fromOne = NumberIterator(1);
+
+        fromOne().value.should.equal(1);
+        fromOne().value.should.equal(2);
+        fromOne().value.should.equal(3);
+        fromOne().value.should.equal(4);
+        fromOne().value.should.equal(5);
+    });
 
 });
