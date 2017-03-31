@@ -1129,4 +1129,21 @@ describe('Composing and Decomposing Data', function () {
         latin(second).should.equal("secundus");
     });
 
+    it('linked list of functions', function () {
+        const K = (x) => (y) => x,
+                I = (x) => (x),
+                V = (x) => (y) => (c) => c(x)(y);
+
+        const first = K,
+            rest  = K(I),
+            pair = V,
+            EMPTY = (() => {});
+
+        const l123 = pair(1)(pair(2)(pair(3)(EMPTY)));
+
+        l123(first).should.equal(1);
+        l123(rest)(first).should.equal(2);
+        l123(rest)(rest)(first).should.equal(3);
+    });
+
 });
