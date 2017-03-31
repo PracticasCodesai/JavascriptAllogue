@@ -1146,4 +1146,47 @@ describe('Composing and Decomposing Data', function () {
         l123(rest)(rest)(first).should.equal(3);
     });
 
+    it('iterating linked list of functions', function () {
+        const K = (x) => (y) => x,
+            I = (x) => (x),
+            V = (x) => (y) => (c) => c(x)(y);
+
+
+        const pairFirst = K,
+            pairRest  = K(I),
+            pair = V;
+
+        const first = (list) => list(
+            () => "ERROR: Can't take first of an empty list",
+            (aPair) => aPair(pairFirst)
+        );
+
+        const rest = (list) => list(
+            () => "ERROR: Can't take first of an empty list",
+            (aPair) => aPair(pairRest)
+        );
+
+        const length = (list) => list(
+            () => 0,
+            (aPair) => 1 + length(aPair(pairRest))
+        );
+
+
+        const print = (list) => list(
+            () => "",
+            (aPair) => `${aPair(pairFirst)} ${print(aPair(pairRest))}`
+        );
+
+
+        const EMPTYLIST = (whenEmpty, unlessEmpty) => whenEmpty();
+
+        const node = (x) => (y) =>
+            (whenEmpty, unlessEmpty) => unlessEmpty(pair(x)(y));
+
+        const l123 = node(1)(node(2)(node(3)(EMPTYLIST)));
+
+        print(l123).should.equals("1 2 3 ");
+
+    });
+
 });
