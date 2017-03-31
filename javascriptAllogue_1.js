@@ -1044,6 +1044,50 @@ describe('Composing and Decomposing Data', function () {
         iteratorSum(aListIterator).should.equal(55);
     });
 
+    it('experiment, create iterator tree sum', function () {
+        const arrayIterator = (array) => {
+            let i = 0;
+
+            return () => {
+                const done = i === array.length;
+
+                return {
+                    done,
+                    value: done ? undefined : array[i++]
+                }
+            }
+        };
+
+        const flattenArray = (array) => {
+            for(let i = 0; i < array.length;i++){
+                if(Array.isArray(array[i])){
+                    let temp = array[i];
+                    array.splice(i, 1);
+                    array = (array.concat(temp))
+                }
+            }
+            return array;
+        };
+
+        const treeIterator = (array) => (arrayIterator(flattenArray(array)));
+
+        const iteratorSum = (iterator) => {
+            let eachIteration,
+                sum = 0;
+
+            while ((eachIteration = iterator(), !eachIteration.done)) {
+                sum += eachIteration.value;
+            }
+            return sum
+        };
+
+        const aTreeArrayIterator = treeIterator([1, [4, [9, [16, 25]]]]);
+
+        assert.deepEqual(flattenArray([1, [4, [9, [16, 25]]]]),[1,4,9,16,25]);
+        iteratorSum(aTreeArrayIterator).should.equal(55);
+
+    });
+
 
 
 });
