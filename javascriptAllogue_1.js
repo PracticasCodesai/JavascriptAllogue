@@ -967,5 +967,31 @@ describe('Composing and Decomposing Data', function () {
         sum(1, 4, 9, 16, 25).should.equal(55);
     });
 
+    it('extract fuctions of loop', function () {
+        const arrayIterator = (array) => {
+            let i = 0;
 
+            return () => {
+                const done = i === array.length;
+
+                return {
+                    done,
+                    value: array[i++]
+                }
+            }
+        }
+
+        const iteratorSum = (iterator) => {
+            let eachIteration,
+                sum = 0;
+
+            while ((eachIteration = iterator(), !eachIteration.done)) {
+                sum += eachIteration.value;
+            }
+            return sum;
+        }
+
+        iteratorSum(arrayIterator([1, 4, 9, 16, 25])).should.equal(55);
+
+    });
 });
