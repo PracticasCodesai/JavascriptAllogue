@@ -1101,4 +1101,21 @@ describe('Composing and Decomposing Data', function () {
         fromOne().value.should.equal(5);
     });
 
+    it('kestrel, idiot bird, kestrel + idiot bird', function () {
+        const K = (x) => (y) => x;
+
+        const fortyTwo = K(42);
+
+        fortyTwo("Hello").should.equals(42);
+
+
+        const I = (x) => (x);
+
+        I(42).should.equal(42);
+
+        K(I)("first")("second").should.equal("second");
+
+
+    });
+
 });
