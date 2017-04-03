@@ -1,10 +1,8 @@
 'use strict';
 
-
 let should = require('chai').should();
 let assert = require('chai').assert;
 let expect = require('chai').expect;
-
 
 describe('A Rich Aroma: Basic Numbers', () => {
 
@@ -268,7 +266,6 @@ describe('Recipes with Basic Functions', function () {
 
         expect(askedOnBlindDate()).to.be.undefined;
         expect(askedOnBlindDate()).to.be.undefined;
-
 
     });
 
@@ -1208,7 +1205,9 @@ describe('Recipes with Data', function () {
         assert.include(newObject, inventory);
         assert.include(newObject, shipment);
     });
+});
 
+describe('A Warm Cup: Basic Strings and Quasi-Literals', function () {
     it('quasi-literals', function () {
         const greeting = (name) => `Hello my name is ${name}`;
         greeting('Arthur Dent').should.equal("Hello my name is Arthur Dent");
@@ -1502,4 +1501,8 @@ describe('Recipes with Data', function () {
         expect(contextualized() === aFourthObject).to.be.true;
 
     });
+});
+
+describe('Recipes with Objects, Mutations, and State', function () {
+    
 });
