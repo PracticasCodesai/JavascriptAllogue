@@ -1406,8 +1406,28 @@ describe('Recipes with Data', function () {
 
         queue.pullHead().should.equal("Hello");
         copyOfQueue.pullHead().should.equal("Hello")
+    });
 
+    it('Have they this context?', function () {
+        const someObject = {
+            someFunction () {
+                return this;
+            }
+        };
+        const anotherObject = {
+            someFunction: someObject.someFunction
+        };
+        const someFunction = someObject.someFunction;
 
+        expect(someFunction() === someObject).to.be.false;
+
+        expect(anotherObject.someFunction() === anotherObject).to.be.true;
+
+        expect(anotherObject.someFunction() === someObject).to.be.false;
+
+        expect((someObject.someFunction)() == someObject).to.be.true;
+
+        expect(someObject['someFunction']() === someObject).to.be.true;
     });
 
 });
