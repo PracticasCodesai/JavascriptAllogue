@@ -1457,4 +1457,14 @@ describe('Recipes with Data', function () {
         expect(anotherObject.someFunction.call(someObject) === someObject).to.be.true;
     });
 
+
+    it('somenthings rare of .call', function () {
+        const a = [1,2,3],
+            b = [4,5,6];
+
+        assert.deepEqual(a.concat([2,1]),[1,2,3,2,1]);
+
+        assert.deepEqual(a.concat.call(b,[2,1]),[4,5,6,2,1]);
+    });
+
 });
