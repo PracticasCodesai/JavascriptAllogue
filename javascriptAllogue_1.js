@@ -1214,5 +1214,40 @@ describe('Recipes with Data', function () {
         greeting('Arthur Dent').should.equal("Hello my name is Arthur Dent");
     });
 
+    it('three basic operations with data structure', function () {
+        const stack = (() => {
+            const obj = {
+                array: [],
+                index: -1,
+                push (value) {
+                    return obj.array[obj.index += 1] = value
+                },
+                pop () {
+                    const value = obj.array[obj.index];
+
+                    obj.array[obj.index] = undefined;
+                    if (obj.index >= 0) {
+                        obj.index -= 1
+                    }
+                    return value
+                },
+                isEmpty () {
+                    return obj.index < 0
+                }
+            };
+
+            return obj;
+        })();
+
+        expect(stack.isEmpty()).to.be.true;
+        stack.push('hello').should.equal("hello");
+        stack.push('JavaScript').should.equal("JavaScript");
+        expect(stack.isEmpty()).to.be.false;
+        stack.pop().should.equal("JavaScript");
+        stack.pop().should.equal("hello");
+        expect(stack.isEmpty()).to.be.true;
+    });
+
+
 
 });
