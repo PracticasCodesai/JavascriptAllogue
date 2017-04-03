@@ -1209,5 +1209,10 @@ describe('Recipes with Data', function () {
         assert.include(newObject, shipment);
     });
 
+    it('quasi-literals', function () {
+        const greeting = (name) => `Hello my name is ${name}`;
+        greeting('Arthur Dent').should.equal("Hello my name is Arthur Dent");
+    });
+
 
 });
