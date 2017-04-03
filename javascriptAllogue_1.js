@@ -1326,4 +1326,47 @@ describe('Recipes with Data', function () {
         model.get("Doctor").should.equal("Who");
     });
 
+    it('try copy, we can not avoid aliasing', function () {
+        const Queue = () => {
+            const queue = {
+                array: [],
+                head: 0,
+                tail: -1,
+                pushTail (value) {
+                    return queue.array[++queue.tail] = value
+                },
+                pullHead () {
+                    if (queue.tail >= queue.head) {
+                        const value = queue.array[queue.head];
+
+                        queue.array[queue.head] = undefined;
+                        queue.head += 1;
+                        return value
+                    }
+                },
+                isEmpty () {
+                    return queue.tail < queue.head;
+                }
+            };
+            return queue
+        };
+
+        const queue = Queue();
+        queue.pushTail('Hello');
+        queue.pushTail('JavaScript');
+
+        const copyOfQueue = Object.assign({}, queue);
+
+        expect(queue !== copyOfQueue).to.be.true;
+
+        copyOfQueue.array = [];
+        for (let i = 0; i < 2; ++i) {
+            copyOfQueue.array[i] = queue.array[i]
+        }
+
+        queue.pullHead().should.equal("Hello");
+
+        copyOfQueue.pullHead().should.equal("JavaScript")
+    });
+
 });
