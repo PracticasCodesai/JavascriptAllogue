@@ -1430,4 +1430,31 @@ describe('Recipes with Data', function () {
         expect(someObject['someFunction']() === someObject).to.be.true;
     });
 
+    it('what do you do .call?', function () {
+        const someObject = {
+            someFunction () {
+                return this;
+            }
+        };
+
+        const returnThis = function () { return this };
+
+        const aThirdObject = {
+            someFunction () {
+                return returnThis()
+            }
+        };
+        const anotherObject = {
+            someFunction: someObject.someFunction
+        };
+
+        expect(returnThis() === aThirdObject).to.be.false;
+
+
+        expect(returnThis.call(aThirdObject) === aThirdObject).to.be.true;
+
+
+        expect(anotherObject.someFunction.call(someObject) === someObject).to.be.true;
+    });
+
 });
