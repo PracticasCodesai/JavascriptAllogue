@@ -1188,5 +1188,26 @@ describe('Composing and Decomposing Data', function () {
         print(l123).should.equals("1 2 3 ");
 
     });
+    
+});
+
+describe('Recipes with Data', function () {
+    it('concat objects with Object.assign', function () {
+        const inventory = {
+            apples: 12,
+            oranges: 12
+        };
+
+        const shipment = {
+            bananas: 54,
+            pears: 24
+        }
+
+        let newObject = Object.assign(inventory, shipment);
+
+        assert.include(newObject, inventory);
+        assert.include(newObject, shipment);
+    });
+
 
 });
