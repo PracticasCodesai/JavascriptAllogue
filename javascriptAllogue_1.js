@@ -1504,5 +1504,13 @@ describe('A Warm Cup: Basic Strings and Quasi-Literals', function () {
 });
 
 describe('Recipes with Objects, Mutations, and State', function () {
-    
+    it('fibonacci runtime', function () {
+        const fibonacci = (n) =>
+            n < 2
+                ? n
+                : fibonacci(n-2) + fibonacci(n-1);
+
+        [40].map(fibonacci)[0].should.equal(102334155);
+    });
+
 });
