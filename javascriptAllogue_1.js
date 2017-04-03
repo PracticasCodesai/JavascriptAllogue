@@ -1365,8 +1365,49 @@ describe('Recipes with Data', function () {
         }
 
         queue.pullHead().should.equal("Hello");
-
         copyOfQueue.pullHead().should.equal("JavaScript")
+    });
+
+    it('try copy and achieve it', function () {
+        const BetterQueue = () =>
+            ({
+                array: [],
+                head: 0,
+                tail: -1,
+                pushTail (value) {
+                    return this.array[this.tail += 1] = value
+                },
+                pullHead () {
+                    if (this.tail >= this.head) {
+                        let value = this.array[this.head];
+
+                        this.array[this.head] = undefined;
+                        this.head += 1;
+                        return value
+                    }
+                },
+                isEmpty () {
+                    return this.tail < this.head
+                }
+            });
+
+        let queue = BetterQueue();
+        queue.pushTail('Hello');
+        queue.pushTail('JavaScript');
+
+        const copyOfQueue = Object.assign({}, queue);
+
+        expect(queue !== BetterQueue).to.be.true;
+
+        copyOfQueue.array = [];
+        for (let i = 0; i < 2; ++i) {
+            copyOfQueue.array[i] = queue.array[i]
+        }
+
+        queue.pullHead().should.equal("Hello");
+        copyOfQueue.pullHead().should.equal("Hello")
+
+
     });
 
 });
