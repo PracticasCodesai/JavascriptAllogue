@@ -1482,5 +1482,24 @@ describe('Recipes with Data', function () {
 
         thirdRest(77, 76, 75, 74, 73).should.equal(75);
     });
+    it('Contextualized vs uncontextualized', function () {
+        const contextualize = (fn, context) =>
+            (...args) =>
+                fn.apply(context, args);
 
+        let aFourthObject = {};
+        let returnThis = function () { return this; };
+
+        aFourthObject.uncontextualized = returnThis;
+
+        aFourthObject.contextualized = contextualize(returnThis, aFourthObject);
+
+        let uncontextualized = aFourthObject.uncontextualized,
+            contextualized = aFourthObject.contextualized;
+
+        expect(uncontextualized() === aFourthObject).to.be.false;
+
+        expect(contextualized() === aFourthObject).to.be.true;
+
+    });
 });
