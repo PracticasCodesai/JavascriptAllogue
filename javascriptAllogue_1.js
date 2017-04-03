@@ -1462,9 +1462,25 @@ describe('Recipes with Data', function () {
         const a = [1,2,3],
             b = [4,5,6];
 
+
         assert.deepEqual(a.concat([2,1]),[1,2,3,2,1]);
 
         assert.deepEqual(a.concat.call(b,[2,1]),[4,5,6,2,1]);
+    });
+
+
+    it('arguments vs ...rest', function () {
+        const thirdArgs = function () {
+            return arguments[2]
+        };
+
+        thirdArgs(77, 76, 75, 74, 73).should.equals(75);
+
+        const thirdRest = function (...rest) {
+            return rest[2]
+        };
+
+        thirdRest(77, 76, 75, 74, 73).should.equal(75);
     });
 
 });
