@@ -1535,6 +1535,29 @@ describe('Recipes with Objects, Mutations, and State', function () {
         fastFibonacci(40).should.equal(102334155);
     });
 
+    xit('fake fast fibonacci', function () {
+        const memoized = (fn) => {
+            const lookupTable = {};
+
+            return function (...args) {
+                const key = JSON.stringify.apply(this, args);
+
+                return lookupTable[key] || (lookupTable[key] = fn.apply(this, args));
+            }
+        };
+
+        const fibonacci = memoized(function fibonacci (n) {
+            if (n < 2) {
+                return n
+            }
+            else {
+                return fibonacci(n-2) + fibonacci(n-1)
+            }
+        });
+
+        fibonacci(40).should.equal(102334155);
+    });
+
 
 
 });
