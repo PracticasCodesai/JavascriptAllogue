@@ -1558,6 +1558,16 @@ describe('Recipes with Objects, Mutations, and State', function () {
         fibonacci(40).should.equal(102334155);
     });
 
+    it('getWith for better syntax', function () {
+        const getWith = (attr) => (object) => object[attr]
 
+        const inventory = {
+            apples: 0,
+            oranges: 144,
+            eggs: 36
+        };
+
+        getWith('oranges')(inventory).should.equal(144);
+    });
 
 });
