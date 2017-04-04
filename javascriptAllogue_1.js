@@ -1504,13 +1504,35 @@ describe('A Warm Cup: Basic Strings and Quasi-Literals', function () {
 });
 
 describe('Recipes with Objects, Mutations, and State', function () {
-    it('fibonacci runtime', function () {
+
+    xit('fibonacci runtime', function () {
         const fibonacci = (n) =>
             n < 2
                 ? n
                 : fibonacci(n-2) + fibonacci(n-1);
 
         [40].map(fibonacci)[0].should.equal(102334155);
+    });
+
+    xit('fast fibonacci', function () {
+        const memoized = (fn, keymaker = JSON.stringify) => {
+            const lookupTable = {};
+
+            return function (...args) {
+                const key = keymaker.apply(this, args);
+
+                return lookupTable[key] || (lookupTable[key] = fn.apply(this, args));
+            }
+        }
+
+        const fastFibonacci = memoized(
+            (n) =>
+                n < 2
+                    ? n
+                    : fastFibonacci(n-2) + fastFibonacci(n-1)
+        );
+
+        fastFibonacci(40).should.equal(102334155);
     });
 
 });
