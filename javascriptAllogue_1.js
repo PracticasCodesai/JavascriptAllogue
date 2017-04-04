@@ -1514,16 +1514,16 @@ describe('Recipes with Objects, Mutations, and State', function () {
         [40].map(fibonacci)[0].should.equal(102334155);
     });
 
-    xit('fast fibonacci', function () {
-        const memoized = (fn, keymaker = JSON.stringify) => {
+    it('fast fibonacci', function () {
+        const memoized = (fn) => {
             const lookupTable = {};
 
             return function (...args) {
-                const key = keymaker.apply(this, args);
+                const key = JSON.stringify.apply(this, args);
 
                 return lookupTable[key] || (lookupTable[key] = fn.apply(this, args));
             }
-        }
+        };
 
         const fastFibonacci = memoized(
             (n) =>
@@ -1534,5 +1534,7 @@ describe('Recipes with Objects, Mutations, and State', function () {
 
         fastFibonacci(40).should.equal(102334155);
     });
+
+
 
 });
