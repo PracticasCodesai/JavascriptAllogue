@@ -1801,4 +1801,34 @@ describe('Served by the Pot: Collections', function () {
         expect(iterableSum(stack)).to.be.NaN;
     });
 
+    it('functions what return order collection', function () {
+
+        let numbers = [1,2,3,4,5,6,7,8];
+
+
+        const mapWith = (fn, collection) =>
+            ({
+                [Symbol.iterator] () {
+                    const iterator = collection[Symbol.iterator]();
+
+                    return {
+                        next () {
+                            const {done, value} = iterator.next();
+
+                            return ({done, value: done ? undefined : fn(value)});
+                        }
+                    }
+                }
+            });
+
+        const even = mapWith((x) => 2 * x, numbers);
+
+        let result = [];
+        for(let value of even){
+            result.push(value);
+        }
+
+        assert.deepEqual(result, [2,4,6,8,10,12,14,16]);
+    });
+
 });
