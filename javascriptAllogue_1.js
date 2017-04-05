@@ -1731,6 +1731,13 @@ describe('Recipes with Objects, Mutations, and State', function () {
         };
 
         iterableSum(stack).should.equal(2015);
+
+
+        const firstAndSecondElement = (first, second, third) =>
+            ({first, second , third});
+
+        assert.deepEqual(firstAndSecondElement(...stack),{ first: 5, second: 10, third: 2000 });
+
     });
 
     it('Error value name = NaN [Symbol.iterator]', function () {
@@ -1791,5 +1798,7 @@ describe('Recipes with Objects, Mutations, and State', function () {
 
         expect(iterableSum(stack)).to.be.NaN;
     });
-    
+
+
+
 });
