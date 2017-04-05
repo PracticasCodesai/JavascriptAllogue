@@ -1845,12 +1845,43 @@ describe('Served by the Pot: Collections', function () {
 
         const iterator = oneTwoThree();
 
-
-
         assert.deepEqual(iterator.next(),{"done":false, value: 1});
         assert.deepEqual(iterator.next(),{"done":false, value: 2});
         assert.deepEqual(iterator.next(),{"done":false, value: 3});
         assert.deepEqual(iterator.next(),{"done":true, value: undefined});
 
     });
+
+    it('generator Now is not function', function () {
+        const oneTwoThree = function * () {
+            yield 1;
+            yield 2;
+            yield 3;
+        };
+
+
+        assert.deepEqual(oneTwoThree().next(),{"done":false, value: 1});
+        assert.deepEqual( [...oneTwoThree()],[1,2,3]);
+
+        const oneTwoThree2 ={
+            [Symbol.iterator]: function * () {
+                yield 1;
+                yield 2;
+                yield 3;
+            }
+        };
+
+        assert.deepEqual( [...oneTwoThree2],[1,2,3]);
+
+        const ThreeNumbers = {
+            *[Symbol.iterator] () {
+                yield 1;
+                yield 2;
+                yield 3
+            }
+        };
+
+        assert.deepEqual( [...ThreeNumbers],[1,2,3]);
+    });
+
 });
