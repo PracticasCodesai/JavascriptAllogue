@@ -1831,4 +1831,26 @@ describe('Served by the Pot: Collections', function () {
         assert.deepEqual(result, [2,4,6,8,10,12,14,16]);
     });
 
+    it('generate 3 numbers', function () {
+        const oneTwoThree = function * () {
+            yield 1;
+            yield 2;
+            yield 3;
+        };
+
+
+        assert.deepEqual( oneTwoThree().next(),{"done":false, value: 1});
+        assert.deepEqual( oneTwoThree().next(),{"done":false, value: 1});
+        assert.deepEqual( oneTwoThree().next(),{"done":false, value: 1});
+
+        const iterator = oneTwoThree();
+
+
+
+        assert.deepEqual(iterator.next(),{"done":false, value: 1});
+        assert.deepEqual(iterator.next(),{"done":false, value: 2});
+        assert.deepEqual(iterator.next(),{"done":false, value: 3});
+        assert.deepEqual(iterator.next(),{"done":true, value: undefined});
+
+    });
 });
