@@ -1675,7 +1675,7 @@ describe('Recipes with Objects, Mutations, and State', function () {
         collectionSum(stack).should.equal(2015);
     });
 
-    it('Javascript Iterator, [Symbol.iterator]', function () {
+    it('Javascript Iterator, [Symbol.iterator] -for---of', function () {
         const Stack3 = () =>
             ({
                 array: [],
