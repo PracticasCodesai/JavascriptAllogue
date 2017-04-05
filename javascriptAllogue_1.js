@@ -1607,7 +1607,9 @@ describe('Recipes with Objects, Mutations, and State', function () {
 
         assert.deepEqual(deepMapWith(getWith('price'))(report), expected);
     });
+});
 
+describe('Served by the Pot: Collections', function () {
 
     it('Example of an object with iterator', function () {
         const Stack1 = () =>
@@ -1630,7 +1632,7 @@ describe('Recipes with Objects, Mutations, and State', function () {
                     return this.index < 0
                 },
                 iterator () {
-                        let iterationIndex = this.index;
+                    let iterationIndex = this.index;
 
                     var self = this;
                     return {
@@ -1773,7 +1775,7 @@ describe('Recipes with Objects, Mutations, and State', function () {
                                 return {done: true};
                             }
                             else {
-                // ---------- Error Name --------------------------------------------------
+                                // ---------- Error Name --------------------------------------------------
                                 return {done: false, valuWe: self.array[iterationIndex--]}
                             }
                         }
@@ -1798,7 +1800,5 @@ describe('Recipes with Objects, Mutations, and State', function () {
 
         expect(iterableSum(stack)).to.be.NaN;
     });
-
-
 
 });
