@@ -1884,4 +1884,36 @@ describe('Served by the Pot: Collections', function () {
         assert.deepEqual( [...ThreeNumbers],[1,2,3]);
     });
 
+    it('differences between using yield o not yield', function () {
+        const mapWith = (fn, iterable) =>
+            ({
+                [Symbol.iterator]: () => {
+                    const iterator = iterable[Symbol.iterator]();
+
+                    return {
+                        next: () => {
+                            const {done, value} = iterator.next();
+
+                            return ({done, value: done ? undefined : fn(value)});
+                        }
+                    }
+                }
+            });
+
+
+
+        function * mapWithYield (fn, iterable) {
+            for (const element of iterable) {
+                yield fn(element);
+            }
+        }
+
+
+        let iterator =  mapWithYield((x) => (x+x),[1,2,3]);
+        let iterator2 =  mapWith((x) => (x+x),[1,2,3]);
+
+        assert.deepEqual( [...iterator],[2,4,6]);
+        assert.deepEqual( [...iterator2],[2,4,6]);
+    });
+
 });
