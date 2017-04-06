@@ -2114,4 +2114,47 @@ describe('Life on the Plantation: Metaobjects', function () {
     });
 
 
+    it('Prototype is inheritance', function () {
+        const Person = {
+            fullName () {
+                return this.firstName + " " + this.lastName;
+            },
+            rename (first, last) {
+                this.firstName = first;
+                this.lastName = last;
+                return this;
+            }
+        };
+
+        const methodNames = (object) =>
+            Object.keys(object).filter(key => typeof(object[key]) == 'function')
+
+        function delegate (receiver, metaobject) {
+        let methods = methodNames(metaobject)
+            methods.forEach(function (methodName) {
+                receiver[methodName] = (...args) => metaobject[methodName].apply(receiver, args)
+            });
+
+            return receiver;
+        };
+
+
+        const sam1 = Object.create(Person);
+
+        const sam2 = {};
+            delegate(sam2, Person, "rename","fullname");
+
+        sam1.rename("Carlos","Ble");
+        sam2.rename("Carlos","Ble");
+
+
+        Person.surname = function () {
+            return this.lastName;
+        };
+
+        sam1.surname().should.equal("Ble");
+        expect(sam2.surname).to.be.undefined;
+    });
+
+
 });
