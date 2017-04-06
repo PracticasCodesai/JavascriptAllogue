@@ -1989,4 +1989,25 @@ describe('Life on the Plantation: Metaobjects', function () {
         sam.fullName().should.equal("Sam Lowry");
     });
 
+    it('We can separate its domain properties from its behaviour', function () {
+        const sam = {
+            firstName: 'Sam',
+            lastName: 'Lowry'
+        };
+
+        const Person = {
+            fullName () {
+                return this.firstName + " " + this.lastName;
+            },
+            rename (first, last) {
+                this.firstName = first;
+                this.lastName = last;
+                return this;
+            }
+        };
+
+        Person.fullName().should.equal("undefined undefined");
+        let samPerson = Object.assign(sam, Person);
+        samPerson.fullName().should.equal("Sam Lowry");
+    });
 });
