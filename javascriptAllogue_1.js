@@ -1920,4 +1920,11 @@ describe('Served by the Pot: Collections', function () {
 
 describe('A Coffeehouse: Symbols', function () {
 
+    it('Symbol is unique', function () {
+        expect(Symbol() !== Symbol()).to.be.true;
+
+        let allongue  = "Allongue";
+        expect(Symbol(allongue) !== Symbol(allongue)).to.be.true;
+    });
+
 });
