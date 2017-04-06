@@ -1972,5 +1972,21 @@ describe('A Coffeehouse: Symbols', function () {
 });
 
 describe('Life on the Plantation: Metaobjects', function () {
+    it('object Navie', function () {
+        const sam = {
+            firstName: 'Sam',
+            lastName: 'Lowry',
+            fullName () {
+                return this.firstName + " " + this.lastName;
+            },
+            rename (first, last) {
+                this.firstName = first;
+                this.lastName = last;
+                return this;
+            }
+        };
+
+        sam.fullName().should.equal("Sam Lowry");
+    });
 
 });
