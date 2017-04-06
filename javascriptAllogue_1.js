@@ -2114,7 +2114,7 @@ describe('Life on the Plantation: Metaobjects', function () {
     });
 
 
-    it('Prototype is inheritance', function () {
+    it('Prototype is inheritance and console not see prototype', function () {
         const Person = {
             fullName () {
                 return this.firstName + " " + this.lastName;
@@ -2154,6 +2154,10 @@ describe('Life on the Plantation: Metaobjects', function () {
 
         sam1.surname().should.equal("Ble");
         expect(sam2.surname).to.be.undefined;
+
+        expect(sam1.hasOwnProperty('fullName')).to.be.false;
+        expect(sam2.hasOwnProperty('fullName')).to.be.true;
+
     });
 
 
