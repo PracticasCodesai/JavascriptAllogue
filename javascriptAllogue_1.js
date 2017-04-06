@@ -2164,4 +2164,13 @@ describe('Life on the Plantation: Metaobjects', function () {
 
 describe('Decaffeinated: Impostors', function () {
 
+    it('Behavior of primitives and Objects', function () {
+
+        expect(new String("Spence Olham") === "Spence Olham").to.be.false;
+        ('' ? 'truthy' : 'falsy').should.equal('falsy');
+        (new Boolean(false) ? 'truthy' : 'falsy').should.equal('truthy');
+        expect(String(new String("Spence Olham")) === "Spence Olham").to.be.true;
+
+    });
+
 });
