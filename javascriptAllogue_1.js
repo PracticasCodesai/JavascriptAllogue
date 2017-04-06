@@ -2188,5 +2188,26 @@ describe('Finish the Cup: Constructors and Classes', function () {
 
         continent.constructor.should.equal(Ur);
     });
+
+    it('create our homemade NEW', function () {
+        function worksLikeNew (constructor, ...args) {
+            const instance = Object.create(constructor.prototype);
+
+            instance.constructor = constructor;
+
+            const result = constructor.apply(instance, args);
+
+            return result === undefined ? instance : result;
+        }
+
+        function NamedContinent (name) {
+            this.name = name;
+        }
+        NamedContinent.prototype.description = function () { return `A continent named "${this.name}"` };
+
+        const na = worksLikeNew(NamedContinent, "North America");
+
+        na.description().should.equal('A continent named "North America"');
+    });
     
 });
