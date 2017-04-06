@@ -1995,7 +1995,7 @@ describe('Life on the Plantation: Metaobjects', function () {
             lastName: 'Lowry'
         };
 
-        const Person = {
+        let Person = {
             fullName () {
                 return this.firstName + " " + this.lastName;
             },
@@ -2009,6 +2009,10 @@ describe('Life on the Plantation: Metaobjects', function () {
         Person.fullName().should.equal("undefined undefined");
         let samPerson = Object.assign(sam, Person);
         samPerson.fullName().should.equal("Sam Lowry");
+
+        Person.fullName = () => ("i am rename");
+        samPerson.fullName().should.equal("Sam Lowry");
+        Person.fullName().should.equal("i am rename");
     });
 
     it('mixins , objets relations many-to-many', function () {
