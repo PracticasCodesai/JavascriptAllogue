@@ -1967,7 +1967,10 @@ describe('A Coffeehouse: Symbols', function () {
         });
 
         expect(q.tail).to.be.undefined;
-
     });
+
+});
+
+describe('Life on the Plantation: Metaobjects', function () {
 
 });
