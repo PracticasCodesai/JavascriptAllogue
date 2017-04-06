@@ -2185,6 +2185,8 @@ describe('Finish the Cup: Constructors and Classes', function () {
         const continent = new Ur();
         expect(continent[0]).to.be.undefined;
         (continent.language).should.equal("JavaScript");
+
+        continent.constructor.should.equal(Ur);
     });
     
 });
