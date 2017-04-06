@@ -2160,5 +2160,8 @@ describe('Life on the Plantation: Metaobjects', function () {
 
     });
 
+});
+
+describe('Decaffeinated: Impostors', function () {
 
 });
