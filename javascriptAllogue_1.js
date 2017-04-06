@@ -2174,3 +2174,17 @@ describe('Decaffeinated: Impostors', function () {
     });
 
 });
+
+describe('Finish the Cup: Constructors and Classes', function () {
+
+    it('just as if we´d created them using Object.create(Ur.prototype)', function () {
+        function Ur(){}
+
+        Ur.prototype.language = 'JavaScript';
+
+        const continent = new Ur();
+        expect(continent[0]).to.be.undefined;
+        (continent.language).should.equal("JavaScript");
+    });
+    
+});
