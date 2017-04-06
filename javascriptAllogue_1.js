@@ -1995,7 +1995,7 @@ describe('Life on the Plantation: Metaobjects', function () {
             lastName: 'Lowry'
         };
 
-        let Person = {
+        const Person = {
             fullName () {
                 return this.firstName + " " + this.lastName;
             },
@@ -2086,10 +2086,32 @@ describe('Life on the Plantation: Metaobjects', function () {
 
         portfolio.netWorth = function () {
             return "I'm actually bankrupt!";
-        }
+        };
 
         investor.netWorth().should.equal("I'm actually bankrupt!");
 
     });
+
+    it('We are starting prototype', function () {
+        const Person = {
+            fullName () {
+                return this.firstName + " " + this.lastName;
+            },
+            rename (first, last) {
+                this.firstName = first;
+                this.lastName = last;
+                return this;
+            }
+        };
+
+
+        const sam1 = Object.create(Person);
+        const sam2 = Object.assign({},Person);
+
+
+        assert.deepEqual(Object.getPrototypeOf(sam1),Person);
+        assert.notDeepEqual(Object.getPrototypeOf(sam2),Person);
+    });
+
 
 });
