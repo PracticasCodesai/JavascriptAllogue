@@ -2011,5 +2011,40 @@ describe('Life on the Plantation: Metaobjects', function () {
         samPerson.fullName().should.equal("Sam Lowry");
     });
 
+    it('mixins , objets relations many-to-many', function () {
+
+        const peck = {
+            firstName: 'Sam',
+            lastName: 'Peckinpah'
+        };
+
+        const Person = {
+            fullName () {
+                return this.firstName + " " + this.lastName;
+            },
+            rename (first, last) {
+                this.firstName = first;
+                this.lastName = last;
+                return this;
+            }
+        };
+
+
+        const HasCareer = {
+            career () {
+                return this.chosenCareer;
+            },
+            setCareer (career) {
+                this.chosenCareer = career;
+                return this;
+            }
+        };
+
+        Object.assign(peck, Person, HasCareer);
+
+        peck.setCareer('Director');
+        peck.career().should.equal('Director');
+    });
+
 
 });
