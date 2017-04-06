@@ -1917,3 +1917,7 @@ describe('Served by the Pot: Collections', function () {
     });
 
 });
+
+describe('A Coffeehouse: Symbols', function () {
+
+});
