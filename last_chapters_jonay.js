@@ -97,5 +97,38 @@ describe('Colourful Mugs: Symmetry, Colour, and Charm', function () {
         expect(two.scaleByYellow.bind(two.scaleByYellow,3)).to.throw("Cannot read property 'radius' of undefined");
     });
 
+    it('composing functions with GREEN code', function () {
+        class Circle {
+            constructor (radius) {
+                this.radius = radius;
+            }
+            diameter () {
+                return Math.PI * 2 * this.radius;
+            }
+            scaleBy (factor) {
+                return new Circle(factor * this.radius);
+            }
+        }
+
+        const requiresFiniteGREEN = (fn) =>
+            function (n) {
+                if (Number.isFinite(n)){
+                    return fn.call(this, n);
+                }
+                else throw "Bad Wolf";
+            };
+
+
+        Circle.prototype.scaleBy = requiresFiniteGREEN(Circle.prototype.scaleBy);
+        const safePlusOne = requiresFiniteGREEN(x => x + 1);
+        const two = new Circle(2);
+
+        two.scaleBy(3).diameter().should.equal(37.69911184307752);
+
+        expect(two.scaleBy.bind(two.scaleBy,"three")).to.throw("Bad Wolf");
+
+        expect(safePlusOne.bind(safePlusOne,[])).to.throw("Bad Wolf");
+        safePlusOne(1).should.equal(2);
+    });
 
 });
