@@ -59,3 +59,8 @@ describe('Recipes with Constructors and Classes', () => {
     });
 
 });
+
+describe('Colourful Mugs: Symmetry, Colour, and Charm', function () {
+
+
+});
