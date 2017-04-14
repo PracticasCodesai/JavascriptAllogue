@@ -415,7 +415,7 @@ describe('Picking the Bean: Choice and Truthiness', function () {
         const and = (a, b) => a && b;
 
         const even = (n) =>
-            or(n === 0, and(n !== 1, even(n - 2)))
+            or(n === 0, and(n !== 1, even(n - 2)));
 
         expect(even.bind(even,42)).to.throw("Maximum call stack size exceeded");
     });

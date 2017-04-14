@@ -48,7 +48,7 @@ describe('Recipes with Constructors and Classes', () => {
             function (...args) {
                 methodBody.apply(this, args);
                 return this;
-            }
+            };
 
         Cake.prototype.setFlavour = fluent(Cake.prototype.setFlavour);
         Cake.prototype.setLayers = fluent(Cake.prototype.setLayers);
@@ -61,6 +61,41 @@ describe('Recipes with Constructors and Classes', () => {
 });
 
 describe('Colourful Mugs: Symmetry, Colour, and Charm', function () {
+
+    it('the functions are blues and methods are yellow', function () {
+        const requiresFinite = (fn) =>
+            (n) => {
+                if (Number.isFinite(n)){
+                    return fn(n);
+                }
+                else throw "Bad Wolf";
+            };
+        const plusOneBlue = x => x + 1;
+
+
+        const safePlusOne = requiresFinite(plusOneBlue);
+
+        expect(safePlusOne.bind(safePlusOne,[])).to.throw("Bad Wolf");
+        safePlusOne(1).should.equal(2);
+
+
+        class Circle {
+            constructor (radius) {
+                this.radius = radius;
+            }
+            diameter () {
+                return Math.PI * 2 * this.radius;
+            }
+            scaleByYellow (factor) {
+                return new Circle(factor * this.radius);
+            }
+        }
+        const two = new Circle(2);
+        Circle.prototype.scaleByYellow = requiresFinite(Circle.prototype.scaleByYellow);
+
+        expect(two.scaleByYellow.bind(two.scaleByYellow,null)).to.throw("Bad Wolf");
+        expect(two.scaleByYellow.bind(two.scaleByYellow,3)).to.throw("Cannot read property 'radius' of undefined");
+    });
 
 
 });
