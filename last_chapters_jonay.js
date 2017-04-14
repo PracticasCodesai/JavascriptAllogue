@@ -62,7 +62,8 @@ describe('Recipes with Constructors and Classes', () => {
 
 describe('Colourful Mugs: Symmetry, Colour, and Charm', function () {
 
-    it('the functions are blues and methods are yellow', function () {
+    it('is that green handling works for both functional (“blue”)' +
+        ' and method invocation (“yellow”) code', function () {
         const requiresFinite = (fn) =>
             (n) => {
                 if (Number.isFinite(n)){
@@ -129,6 +130,28 @@ describe('Colourful Mugs: Symmetry, Colour, and Charm', function () {
 
         expect(safePlusOne.bind(safePlusOne,[])).to.throw("Bad Wolf");
         safePlusOne(1).should.equal(2);
+    });
+
+    it('problem with New.Constructors are “red” functions', function () {
+        class Circle {
+            constructor (radius) {
+                this.radius = radius;
+            }
+            diameter () {
+                return Math.PI * 2 * this.radius;
+            }
+            scaleBy (factor) {
+                return new Circle(factor * this.radius);
+            }
+        }
+
+        const round = new Circle(1);
+
+        round.diameter().should.equal(6.283185307179586);
+
+        expect(Circle.bind(Circle,2)).to.throw("Class constructor Circle " +
+            "cannot be invoked without 'new'");
+
     });
 
 });
