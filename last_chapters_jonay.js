@@ -154,4 +154,31 @@ describe('Colourful Mugs: Symmetry, Colour, and Charm', function () {
 
     });
 
+    it('adapting to handle red and charmed functions', function () {
+        class CircleRed {
+            constructor (radius) {
+                this.radius = radius;
+            }
+            diameter () {
+                return Math.PI * 2 * this.radius;
+            }
+            scaleBy (factor) {
+                return new CircleRed(factor * this.radius);
+            }
+        }
+
+        const CircleFactoryCHARMED = (radius) =>
+            new CircleRed(radius);
+
+        CircleFactoryCHARMED(2).scaleBy(3).diameter().should.equal(37.69911184307752);
+
+        const FactoryFactoryBLUE = (clazz) =>
+            (...args) =>
+                new clazz(...args);
+
+        assert.deepEqual([1, 2, 3, 4, 5].map(FactoryFactoryBLUE(CircleRed)),
+            [{"radius":1},{"radius":2},{"radius":3},{"radius":4},{"radius":5}]);
+
+    });
+
 });
