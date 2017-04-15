@@ -476,3 +476,6 @@ describe('more decorators', function () {
     });
 
 });
+
+describe('More Decorator Recipes', function () {
+});
