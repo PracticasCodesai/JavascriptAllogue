@@ -306,12 +306,79 @@ describe('Con Panna: Composing Class Behaviour', function () {
             .addBook('I Robot')
             .addToCollection('The Mysterious Affair at Styles');
 
-
-
         assert.deepEqual(bookLoving.collection()[0],"The Mysterious Affair at Styles");
-
         assert.deepEqual(bookLoving.books()[0],"I Robot");
+    });
 
+    it('using symbols to reduce coupled properties', function () {
+        class Person {
+            constructor (first, last) {
+                this.rename(first, last);
+            }
+            fullName () {
+                return this.firstName + " " + this.lastName;
+            }
+            rename (first, last) {
+                this.firstName = first;
+                this.lastName = last;
+                return this;
+            }
+        }
+
+        class Bibliophile extends Person {
+            constructor (first, last) {
+                super(first, last);
+                this._books = [];
+            }
+            addToCollection (name) {
+                this._books.push(name);
+                return this;
+            }
+            hasInCollection (name) {
+                return this._books.indexOf(name) >= 0;
+            }
+        }
+
+        class BookGlutten extends Bibliophile {
+            buyInBulk (...names) {
+                this.books().push(...names);
+                return this;
+            }
+        }
+
+        const BibliophilePrivate = (function () {
+            const books = Symbol("books");
+
+            return class BibliophilePrivate extends Person {
+                constructor (first, last) {
+                    super(first, last);
+                    this[books] = [];
+                }
+                addToCollection (name) {
+                    this[books].push(name);
+                    return this;
+                }
+                hasInCollection (name) {
+                    return this[books].indexOf(name) >= 0;
+                }
+            }
+        })();
+
+
+        class BookGluttenPrivate extends BibliophilePrivate {
+            buyInBulk (...names) {
+                for (let name of names) {
+                    this.addToCollection(name);
+                }
+                return this;
+            }
+        }
+
+        const bezos1 = new BookGlutten('jeff', 'bezos');
+        const bezos2 = new BookGluttenPrivate('jeff', 'bezos');
+
+        expect(bezos1).to.have.property('_books');
+        expect(bezos2).not.to.have.property('_books');
     });
     
 });
