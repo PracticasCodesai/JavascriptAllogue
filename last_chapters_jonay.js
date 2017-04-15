@@ -217,6 +217,42 @@ describe('Con Panna: Composing Class Behaviour', function () {
         {"r":1,"g":2,"b":3});
 
     });
+    it('functional Mixins', function () {
+        class Todo {
+            constructor (name) {
+                this.name = name || 'Untitled';
+                this.done = false;
+            }
+            do () {
+                this.done = true;
+                return this;
+            }
+            undo () {
+                this.done = false;
+                return this;
+            }
+        }
+
+        const FunctionalMixin = (behaviour) =>
+            target => Object.assign(target, behaviour);
+
+
+        const Coloured = FunctionalMixin({
+            setColourRGB ({r, g, b}) {
+                this.colourCode = {r, g, b};
+                return this;
+            },
+            getColourRGB () {
+                return this.colourCode;
+            }
+        });
+
+        Coloured(Todo.prototype);
+
+        assert.deepEqual
+        (new Todo('test').setColourRGB({r: 1, g: 2, b: 3}).getColourRGB(),
+            {"r":1,"g":2,"b":3});
+    });
     
     
     
