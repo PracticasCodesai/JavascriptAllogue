@@ -382,3 +382,7 @@ describe('Con Panna: Composing Class Behaviour', function () {
     });
     
 });
+
+describe('more decorators', function () {
+
+});
