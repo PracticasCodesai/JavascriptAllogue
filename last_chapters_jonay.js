@@ -384,5 +384,45 @@ describe('Con Panna: Composing Class Behaviour', function () {
 });
 
 describe('more decorators', function () {
+    it('why musician is {}', function () {
+        const once = (fn) => {
+            let hasRun = false;
+
+            return function (...args) {
+                if (hasRun) return;
+                hasRun = true;
+                return fn.apply(this, args);
+            }
+        };
+
+        class Person {
+            setName (first, last) {
+                this.firstName = first;
+                this.lastName = last;
+                return this;
+            }
+            fullName () {
+                return this.firstName + " " + this.lastName;
+            }
+        }
+
+        Object.defineProperty(Person.prototype, 'setName',
+            { value: once(Person.prototype.setName) });
+
+
+        const logician = new Person()
+            .setName('Raymond', 'Smullyan');
+
+        const musician = new Person();
+        musician.setName('Raymond', 'Smullyan');
+
+        assert.deepEqual(musician, {});
+        assert.deepEqual(logician,
+            {
+            "firstName": "Raymond",
+            "lastName": "Smullyan"
+        });
+
+    });
 
 });
