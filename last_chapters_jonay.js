@@ -253,7 +253,65 @@ describe('Con Panna: Composing Class Behaviour', function () {
         (new Todo('test').setColourRGB({r: 1, g: 2, b: 3}).getColourRGB(),
             {"r":1,"g":2,"b":3});
     });
-    
-    
+
+    it('Symbol() delete conflicts of properties', function () {
+        class Person {
+            constructor (first, last) {
+                this.rename(first, last);
+            }
+            fullName () {
+                return this.firstName + " " + this.lastName;
+            }
+            rename (first, last) {
+                this.firstName = first;
+                this.lastName = last;
+                return this;
+            }
+        };
+
+        const IsAuthor = (function () {
+            const books = Symbol();
+
+            return {
+                addBook (name) {
+                    this.books().push(name);
+                    return this;
+                },
+                books () {
+                    return this[books] || (this[books] = []);
+                }
+            };
+        })();
+
+        const IsBibliophile = (function () {
+            const books = Symbol();
+
+            return {
+                addToCollection (name) {
+                    this.collection().push(name);
+                    return this;
+                },
+                collection () {
+                    return this[books] || (this[books] = []);
+                }
+            };
+        })();
+
+        class BookLovingAuthor extends Person {
+        }
+
+        Object.assign(BookLovingAuthor.prototype, IsBibliophile, IsAuthor);
+
+        let bookLoving = new BookLovingAuthor('Isaac', 'Asimov')
+            .addBook('I Robot')
+            .addToCollection('The Mysterious Affair at Styles');
+
+
+
+        assert.deepEqual(bookLoving.collection()[0],"The Mysterious Affair at Styles");
+
+        assert.deepEqual(bookLoving.books()[0],"I Robot");
+
+    });
     
 });
