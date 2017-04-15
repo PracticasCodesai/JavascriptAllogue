@@ -478,4 +478,49 @@ describe('more decorators', function () {
 });
 
 describe('More Decorator Recipes', function () {
+    it('undo', function () {
+        const firstName = Symbol('firstName'),
+            lastName = Symbol('lastName'),
+            undoStack = Symbol('undoStack'),
+            redoStack = Symbol('redoStack');
+
+        class Person {
+            constructor (first, last) {
+                this[firstName] = first;
+                this[lastName] = last;
+            }
+
+            fullName () {
+                return this[firstName] + " " + this[lastName];
+            }
+
+            rename (first, last) {
+                this[undoStack] || (this[undoStack] = []);
+                this[undoStack].push({
+                    [firstName]: this[firstName],
+                    [lastName]: this[lastName]
+                });
+                this[firstName] = first;
+                this[lastName] = last;
+                return this;
+            }
+
+            undo () {
+                this[undoStack] || (this[undoStack] = []);
+                let oldState = this[undoStack].pop();
+
+                if (oldState != null) Object.assign(this, oldState);
+                return this;
+            }
+        };
+
+        const b = new Person('barak', 'obama');
+
+        b.rename('Jonay', 'Godoy');
+        b.fullName().should.equal('Jonay Godoy');
+
+        b.undo();
+        b.fullName().should.equal('barak obama');
+    });
+
 });
